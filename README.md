@@ -1,6 +1,6 @@
 # Libraswaps
 
-In this open source project lead by Dr. Yaron Velner (CTO @ Kyber Network) supported by the Libracamp grant program,
+In this open source project lead by Dr. Yaron Velner (founder, CTO @ Kyber Network) supported by the Libracamp grant program,
 we present a simple & straightforward implementation of Libra ⇔ ETH atomic swaps.
 
 To learn more about Libraswaps head over to [www.libraswaps.com](https://www.libraswaps.com).
