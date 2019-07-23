@@ -1,0 +1,131 @@
+// NOTE: this module is based on the logic of earmarked_libra.mvir
+
+// A module for allocating a coin for atomic swap
+module AtomicSwapCoin {
+  import 0x0.LibraCoin;
+  import 0x0.Hash;
+
+  // A wrapper containing a Libra coin and the address of the recipient the
+  // coin is allocated for.
+  resource T {
+    coin: R#LibraCoin.T,
+    recipient: address,
+    hash_result: bytearray
+  }
+
+  // Create a new atomic swap coin with the given recipient and a hash result.
+  // Publish the coin under the transaction sender's account address.
+  public create(coin: R#LibraCoin.T, recipient: address, hash_result: bytearray) {
+    let t: R#Self.T;
+
+    // Construct or "pack" a new resource of type T. Only procedures of the
+    // `AtomicSwapCoin` module can create an `AtomicSwapCoin.T`.
+    t = T {
+      coin: move(coin),
+      recipient: move(recipient),
+      hash_result: move(hash_result)
+    };
+
+    // Publish the atomic swap coin under the transaction sender's account
+    // address. Each account can contain at most one resource of a given type; 
+    // this call will fail if the sender already has a resource of this type.
+    move_to_sender<T>(move(t));
+    return;
+  }
+
+  // Allow the tx sender to claim a coin if he is the intended recipient and knows the secret.
+  public claim_for_recipient(atomic_coin_address: address, secret: bytearray): R#Self.T {
+    let t: R#Self.T;
+    let t_ref: &R#Self.T;
+    let t_ref2: &R#Self.T;
+    let sender: address;
+    let hash_result: bytearray;
+
+    t = move_from<T>(move(atomic_coin_address));
+    t_ref = &t;
+    sender = get_txn_sender();
+
+    // Ensure that the transaction sender is the recipient.
+    assert(*(&move(t_ref).recipient) == move(sender), 99);
+
+    // Ensure the transaction sender also knows the pre image secret.
+    hash_result = Hash.keccak256(copy(secret));
+    t_ref2 = &t;
+    assert(*(&move(t_ref2).hash_result) == move(hash_result), 98);
+
+    return move(t);
+  }
+
+  // Allow the creator of the atomic swap coin to reclaim it.
+  public claim_for_creator(): R#Self.T {
+    let t: R#Self.T;
+    let coin: R#LibraCoin.T;
+    let recipient: address;
+    let sender: address;
+  
+    sender = get_txn_sender();
+    // This will fail if no resource of type T under the sender's address.
+    t = move_from<T>(move(sender));
+
+    return move(t);
+  }
+  
+  // Extract the Libra coin from its wrapper and return it to the caller.
+  public unwrap(t: R#Self.T): R#LibraCoin.T {
+    let coin: R#LibraCoin.T;
+    let recipient: address;
+    let hash_result: bytearray;
+
+    // This "unpacks" a resource type by destroying the outer resource, but
+    // returning its contents. Only the module that declares a resource type
+    // can unpack it.
+    T { coin, recipient, hash_result} = move(t);
+    return move(coin);
+  }
+}
+
+// TODO: lines below this are tests
+// run this by:
+// 1. copying the file to libra repo under language/functional_tests/tests/testsuite/modules
+// 2. run 'cargo test -p functional_tests atomic_swap'
+
+//! new-transaction
+
+import 0x0.LibraAccount;
+import 0x0.LibraCoin;
+import Transaction.AtomicSwapCoin;
+
+main() {
+
+  let recipient_address: address;
+  let coin: R#LibraCoin.T;
+  let atomic_swap_coin: R#AtomicSwapCoin.T;
+  let sender: address;
+  
+  let secret: bytearray;
+  let result: bytearray;
+
+  sender = get_txn_sender();
+
+  secret = b"abcd";
+  result = b"dbe576b4818846aa77e82f4ed5fa78f92766b141f282d36703886d196df39322";
+
+  recipient_address = 0xb0b;
+  coin = LibraAccount.withdraw_from_sender(1000);
+
+  // option 1: recipient is different than sender.
+  //           can only claim_for_creator() in testing enviorment.
+  AtomicSwapCoin.create(move(coin), move(recipient_address), copy(result));
+  atomic_swap_coin = AtomicSwapCoin.claim_for_creator();
+
+  // option 2: sender is also the recipient.
+  //           sender claims with claim_for_recipient()
+  //AtomicSwapCoin.create(move(coin), copy(sender), copy(result));
+  //atomic_swap_coin = AtomicSwapCoin.claim_for_recipient(copy(sender), copy(secret));
+
+  coin = AtomicSwapCoin.unwrap(move(atomic_swap_coin));
+  LibraAccount.deposit(move(sender), move(coin));
+
+  return;
+}
+
