@@ -33,10 +33,12 @@ contract AtomicSwap {
         swap.amount = msg.value;
         swap.active = true;
         
-        emit SwapStart(swap.sender, swap.recipient, hashedSecret, swap.startTime, swap.duration, swap.amount);
-        
         swaps[hashedSecret] = swap;
+        
+        emit SwapStart(swap.sender, swap.recipient, hashedSecret, swap.startTime, swap.duration, swap.amount);
     }
+    
+    event SwapCancel(bytes32 indexed hashedSecret, uint time);
     
     function cancelSwap(bytes32 hashedSecret) public {
         Swap memory swap = swaps[hashedSecret];
@@ -49,7 +51,11 @@ contract AtomicSwap {
         
         msg.sender.transfer(swap.amount);
         
+        emit SwapCancel(hashedSecret, now);
+        
     }
+    
+    event SwapComplete(bytes32 indexed hashedSecret, uint time);
     
     function completeSwap(bytes memory secret) public {
         bytes32 hashedSecret = keccak256(secret);
@@ -63,6 +69,8 @@ contract AtomicSwap {
         swaps[hashedSecret].active = false;
         
         msg.sender.transfer(swap.amount);
+        
+        emit SwapComplete(hashedSecret, now);
     }
     
     // auxilary function to get swap info
