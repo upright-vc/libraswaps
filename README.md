@@ -26,7 +26,7 @@ For the sake of simplicity we ignore the case where Alice does not reveal her se
 ## Running the project
 To run the atomic_swap implementation test, you should perform the following steps:
 
- - Clone the Libra Core Repository:
+ Clone the Libra Core Repository:
 
 ```
 git clone https://github.com/libra/libra.git
@@ -64,5 +64,7 @@ cargo test -p functional_tests atomic_swap
 
 Note: If your tests failed, edit the `atomic_swap.mvir` file and run the following command to rerun the tests:
 
+```
 cargo test -p functional_tests --test testsuite
+```
 
