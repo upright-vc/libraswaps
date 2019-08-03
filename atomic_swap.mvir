@@ -107,8 +107,8 @@ main() {
 
   sender = get_txn_sender();
 
-  secret = b"abcd";
-  result = b"dbe576b4818846aa77e82f4ed5fa78f92766b141f282d36703886d196df39322";
+  secret = h"abcd";
+  result = h"dbe576b4818846aa77e82f4ed5fa78f92766b141f282d36703886d196df39322";
 
   recipient_address = 0xb0b;
   coin = LibraAccount.withdraw_from_sender(1000);
