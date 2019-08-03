@@ -47,11 +47,11 @@ To setup Libra Core, run the setup script to install the dependencies
 
 The setup script performs these actions:
 
-Installs rustup — rustup is an installer for the Rust programming language, which Libra Core is implemented in.
-It Installs the required versions of the rust-toolchain.
-Installs CMake — to manage the build process.
-Installs protoc — a compiler for protocol buffers.
-Also, installs Go — for building protocol buffers.
+- Installs rustup — rustup is an installer for the Rust programming language, which Libra Core is implemented in.
+- It Installs the required versions of the rust-toolchain.
+- Installs CMake — to manage the build process.
+- Installs protoc — a compiler for protocol buffers.
+- Also, installs Go — for building protocol buffers.
 
 Copy the atomic_swap.mvir (Move IR source code) to the test folder in the Libra repository located at language/functional_tests/tests/testsuite/modules
 
