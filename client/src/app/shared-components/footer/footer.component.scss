@@ -1,0 +1,38 @@
+.footer {
+    background-color: #000;
+    font-size: 18px;
+
+    &__wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 106px;
+        max-width: 1680px;
+        padding: 0 58px;
+        margin: 0 auto;
+    }
+
+    &__left {
+        display: flex;
+        align-items: center;
+    }
+
+    &__text {
+        margin-right: 18px;
+    }
+
+    &__project {
+        margin-right: 17px;
+    }
+
+    &__right {
+        
+        a {
+            color: #fff;
+
+            &:hover {
+                text-decoration-color: #fff;
+            }
+        }
+    }
+}

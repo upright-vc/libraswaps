@@ -1,0 +1,111 @@
+<form class="swaps-form" [formGroup]="swapsFormGroup" (submit)="submitForm(swapsFormGroup.value)">
+  <div class="swaps-form__logo">
+    <div class="swaps-form__logo-icon">
+      <img src="./../../../assets/img/LS-logo.png" alt="">
+    </div>
+    <span class="swaps-form__logo-text">1 ETH = 100 Libra</span>
+  </div>
+  <div class="swaps-form__control">
+    <div class="swaps-form__control-btn">
+      <button class="btn" disabled>=</button>
+    </div>
+    <div class="swaps-form__control-btn">
+      <button class="btn btn--swap" [disabled]="swapsFormGroup.invalid">
+        <span class="btn-icon-left"></span>
+        Swap Now
+        <span class="btn-icon-right"></span>
+      </button>
+    </div>
+  </div>
+  <div class="swaps-form__col swaps-form__col--left">
+    <div class="swaps-form__box">
+      <div class="swaps-form__icon-row">
+        <div class="swaps-form__icon">
+          <img src="./../../../assets/img/eth.png" alt="">
+        </div>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P1 ETH public address</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pOneEthPublicAddress">
+          <mat-error>Some error text</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P1 Libra public address</span>
+          <div class="swaps-form__create">
+            <a href="#">Create Wallet</a>
+          </div>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pOneLibraPublicAddress">
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">Amount in ETH</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Enter amount" formControlName="amountEth">
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P1 ETH private key (or use metamask)</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pOneEthPrivateKey">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="swaps-form__col swaps-form__col--right">
+    <div class="swaps-form__box">
+      <div class="swaps-form__icon-row">
+        <div class="swaps-form__icon">
+          <img src="./../../../assets/img/libra.png" alt="">
+        </div>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P2 Libra public address</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pTwoLibraPublicAddress">
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P2 ETH address</span>
+          <div class="swaps-form__create">
+            <a href="#">Create Wallet</a>
+          </div>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pTwoEthPublicAddress">
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">Amount in Libra</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="See amount" formControlName="amountLibra">
+        </mat-form-field>
+      </div>
+      <div class="swaps-form__inner">
+        <div class="swaps-form__row">
+          <span class="swaps-form__title">P1 Libra private key</span>
+        </div>
+        <mat-form-field>
+          <input matInput autocomplete="off" placeholder="Paste here" formControlName="pTwoLibraPrivateKey">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+
+<app-footer></app-footer>

@@ -1,0 +1,50 @@
+.notification {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 850px;
+  padding: 0 58px;
+
+  &__wrap {
+    max-width: 1560px;
+    margin: 0 auto;
+    background-color: #000;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 70px 0 18px;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 16px;
+  }
+
+  &__item {
+    margin-left: 58px;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: #fff;
+
+      &:hover {
+        text-decoration-color: #fff;
+      }
+
+      img {
+        margin-right: 16px;
+        transform: scale(.8);
+      }
+    }
+  }
+
+  &__name {
+    font-size: 16px;
+  }
+}
