@@ -3,7 +3,7 @@
 In this open source project lead by Dr. Yaron Velner (Founder, CTO @ Kyber Network) supported by the Libracamp grant program,
 we present a simple & straightforward implementation of Libra ⇔ ETH atomic swaps.
 
-To learn more about Libraswaps head over to [www.libraswaps.com](https://www.libraswaps.com).
+To learn more about Libraswaps head over watch this [video](https://youtu.be/TBOh-AIWIX4).
 
 In atomic swaps, two parties, namely, Alice and Bob want to exchange coins without any trusted third party.
 In this example Alice own an asset on the Libra chain, and Bob own Ether on the Ethereum blockchain.
